@@ -21,6 +21,10 @@ public class NotePoint : MonoBehaviour
     {
 
         transform.position = new Vector3(transform.position.x - speedValue,transform.position.y , transform.position.z);
+        if (transform.position.x < -10)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     void SetColor(Color color)
