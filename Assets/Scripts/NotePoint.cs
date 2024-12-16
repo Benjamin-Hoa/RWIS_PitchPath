@@ -34,8 +34,7 @@ public class NotePoint : MonoBehaviour
     void SetHeight(int pos)
     {
         
-        transform.position = new Vector3(10,pos-3,-1) ;
-        
+        transform.position = new Vector3(10,((2f/3f)*(float)pos)-4f,-1) ;
     }
     public void Setup(float frequency, int pos)
     {

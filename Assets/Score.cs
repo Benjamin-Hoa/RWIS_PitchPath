@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    int score;
+    [SerializeField] int score;
+    [SerializeField] Text score_number;
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +20,15 @@ public class Score : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.SetActive(false);
         score++;
+        UpdateScore();
         Destroy(collision.gameObject);
+    }
+
+    void UpdateScore()
+    {
+        score_number.text = score.ToString();
     }
 }
