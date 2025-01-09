@@ -17,6 +17,7 @@ public class Deplacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     { //DebugMode
+
         /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -31,6 +32,7 @@ public class Deplacement : MonoBehaviour
             this.transform.position = position;
         }
         */
+
         //normal mode
         CvtPitchToHeight(pitch);
 
@@ -47,7 +49,6 @@ public class Deplacement : MonoBehaviour
         newPos = 12f * Mathf.Log(pitch / 440f, 2);//calculating the postion with the formula for linear scale between frequency and notes
         newPos += 11.5f;
         newPos = (2f / 3f) * newPos - 4f;
-       //Debug.Log(newPos);
         newPos = Mathf.Min(newPos, 5);
         newPos = Mathf.Max(newPos, -5);
         Vector3 res = new Vector3(transform.position.x, newPos, transform.position.z);
@@ -55,9 +56,5 @@ public class Deplacement : MonoBehaviour
 
 
     }
-    /*IEnumerator Movement(Vector3 endPoint)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, endPoint, 0.1f);
-        return null;
-    }*/
+
 }

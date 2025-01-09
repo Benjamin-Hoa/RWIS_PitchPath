@@ -5,6 +5,7 @@ using UnityEngine;
 public class MicInput : MonoBehaviour
 {
     AudioSource micro;
+    string UsedMicrophone;
     void EstimatePitch()
     {
         var estimator = this.GetComponent<AudioPitchEstimator>();
@@ -14,13 +15,11 @@ public class MicInput : MonoBehaviour
 
         if (float.IsNaN(frequency))
         {
-            //Debug.Log("Rien");
-            // Algorithm didn't detect fundamental frequency (e.g. silence).
+
         }
         else
         {
             gameObject.GetComponent<Deplacement>().pitch = frequency;
-            //Debug.Log(frequency);
             // Algorithm detected fundamental frequency.
             // The frequency is stored in the variable `frequency` (in Hz).
         }
@@ -40,13 +39,13 @@ public class MicInput : MonoBehaviour
         if (Microphone.devices.Length > 0)
         {
             micro = GetComponent<AudioSource>();
-
-            Microphone.GetDeviceCaps(Microphone.devices[0], out int minFreq, out int maxFreq);
+            UsedMicrophone = Microphone.devices[0];
+            Microphone.GetDeviceCaps(UsedMicrophone, out int minFreq, out int maxFreq);
             micro.clip = Microphone.Start(Microphone.devices[0], false, 3559, maxFreq);
         }
         else
         {
-            Debug.LogError("No microphone detected!");
+            Debug.LogError("No microphone");
         }
 
         micro.Play();
@@ -57,5 +56,12 @@ public class MicInput : MonoBehaviour
     void Update()
     {
 
+    }
+    void OnDisable()
+    {
+        if (Microphone.IsRecording(UsedMicrophone))
+        {
+            Microphone.End(UsedMicrophone);
+        }
     }
 }
