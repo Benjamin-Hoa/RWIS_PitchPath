@@ -28,12 +28,29 @@ public class MicInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        micro = GetComponent<AudioSource>();
+        // Request microphone permission
+        #if PLATFORM_ANDROID
+        if (!Application.HasUserAuthorization(UserAuthorization.Microphone))
+        {
+            Application.RequestUserAuthorization(UserAuthorization.Microphone);
+        }
+        #endif
 
-        Microphone.GetDeviceCaps(Microphone.devices[0], out int minFreq, out int maxFreq);
-        micro.clip = Microphone.Start(Microphone.devices[0], false, 3559, maxFreq);
+        // Start microphone
+        if (Microphone.devices.Length > 0)
+        {
+            micro = GetComponent<AudioSource>();
+
+            Microphone.GetDeviceCaps(Microphone.devices[0], out int minFreq, out int maxFreq);
+            micro.clip = Microphone.Start(Microphone.devices[0], false, 3559, maxFreq);
+        }
+        else
+        {
+            Debug.LogError("No microphone detected!");
+        }
+
         micro.Play();
-        InvokeRepeating("EstimatePitch", 0, 0.05f);
+        InvokeRepeating("EstimatePitch", 0, 0.08f);
     }
 
     // Update is called once per frame
