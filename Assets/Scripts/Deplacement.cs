@@ -8,10 +8,12 @@ public class Deplacement : MonoBehaviour
 {
     float ratio;
     public float pitch = 210;
+    float[] frequencyList; //list of frequencies
+    
     // Start is called before the first frame update
     void Start()
     {
-
+        frequencyList = GameObject.FindWithTag("Path").transform.GetComponent<PathManager>().notes_freq;
     }
 
     // Update is called once per frame
@@ -45,10 +47,8 @@ public class Deplacement : MonoBehaviour
     private void CvtPitchToHeight(float pitch)
     {
         float newPos;
-
-        newPos = 12f * Mathf.Log(pitch / 440f, 2);//calculating the postion with the formula for linear scale between frequency and notes
-        newPos += 11.5f;
-        newPos = (2f / 3f) * newPos - 4f;
+        newPos = 12f * Mathf.Log(pitch / frequencyList[6] , 2);//calculating the postion with the formula for linear scale between frequency and notes
+        newPos *= (4f / 6f);
         newPos = Mathf.Min(newPos, 5);
         newPos = Mathf.Max(newPos, -5);
         Vector3 res = new Vector3(transform.position.x, newPos, transform.position.z);
