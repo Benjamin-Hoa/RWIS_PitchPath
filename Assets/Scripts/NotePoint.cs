@@ -27,19 +27,16 @@ public class NotePoint : MonoBehaviour
         }
     }
 
-    void SetColor(Color color)
-    {
-        //TODO
-    }
     void SetHeight(int pos)
     {
         
         transform.position = new Vector3(10,(4f/6f)*((float)pos-7f),-1);
     }
-    public void Setup(float frequency, int pos)
+    public void Setup(float frequency, int pos, UnityEngine.Color color)
     {
         SetHeight(pos);
         freq = frequency;
+	this.gameObject.GetComponent<Renderer>().material.color = color;
         
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     [SerializeField] int score;
-    [SerializeField] Text score_number;
+    [SerializeField] TMPro.TextMeshProUGUI score_number;
+    [SerializeField] ParticleSystem particle_effect;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +24,11 @@ public class Score : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         score++;
+	particle_effect.Play();
         UpdateScore();
         Destroy(collision.gameObject);
+	ParticleSystem.MainModule settings = particle_effect.main;
+	settings.startColor = new ParticleSystem.MinMaxGradient(collision.gameObject.GetComponent<Renderer>().material.color);
     }
 
     void UpdateScore()
