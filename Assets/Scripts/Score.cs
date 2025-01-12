@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     [SerializeField] int score;
-    [SerializeField] Text score_number;
+    [SerializeField] TMPro.TextMeshProUGUI score_number;
 
     // Start is called before the first frame update
     void Start()
