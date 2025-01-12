@@ -27,6 +27,8 @@ public class Score : MonoBehaviour
 	particle_effect.Play();
         UpdateScore();
         Destroy(collision.gameObject);
+	ParticleSystem.MainModule settings = particle_effect.main;
+	settings.startColor = new ParticleSystem.MinMaxGradient(collision.gameObject.GetComponent<Renderer>().material.color);
     }
 
     void UpdateScore()

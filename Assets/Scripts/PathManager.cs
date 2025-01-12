@@ -13,6 +13,7 @@ public class PathManager : MonoBehaviour
     float[] notes_freq_high = { (float)164.81, (float)174.61, (float)184.99, (float)195.99, (float)207.65, (float)220, (float)233.08, 246.94f, 261.52f, 277.18f, 293.66f, 311.12f };//base notes frequencies
     float[] notes_freq_low = { (float)164.81, (float)174.61, (float)184.99, (float)195.99, (float)207.65, (float)220, (float)233.08, 246.94f, 261.52f, 277.18f, 293.66f, 311.12f };//base notes frequencies
     float[] notes_freq = {(float)164.81, (float)174.61, (float)184.99, (float)195.99, (float)207.65, (float)220, (float)233.08,246.94f,261.52f,277.18f,293.66f,311.12f};//base notes frequencies
+    [SerializeField] UnityEngine.Color[] colors;
     [SerializeField] GameObject NotePoint_prefab;//Prefab to be able to spawn notepoints
     int nbNotes = 10; //number of notes
     int noteIndex = 0;
@@ -40,7 +41,7 @@ public class PathManager : MonoBehaviour
             GameObject newNote = GameObject.Instantiate(NotePoint_prefab);
             newNote.SetActive(true);
 
-            newNote.GetComponent<NotePoint>().Setup(notes[noteIndex], notesPos[noteIndex]);
+            newNote.GetComponent<NotePoint>().Setup(notes[noteIndex], notesPos[noteIndex],colors[notesPos[noteIndex]]);
             Debug.Log(notesPos[noteIndex]);
             noteIndex += 1;
             deltatime = 0;
