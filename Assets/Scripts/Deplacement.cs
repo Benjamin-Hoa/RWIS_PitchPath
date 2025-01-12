@@ -13,6 +13,7 @@ public class Deplacement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(GameObject.FindWithTag("Path"));
         frequencyList = GameObject.FindWithTag("Path").transform.GetComponent<PathManager>().notes_freq;
     }
 
