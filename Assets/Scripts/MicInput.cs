@@ -1,67 +1,111 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MicInput : MonoBehaviour
 {
-    AudioSource micro;
-    string UsedMicrophone;
-    void EstimatePitch()
-    {
-        var estimator = this.GetComponent<AudioPitchEstimator>();
+    private AudioSource micro;
+    private string usedMicrophone;
+    public GameObject character; 
 
-        // Estimates fundamental frequency from AudioSource output.
-        float frequency = estimator.Estimate(micro);
-
-        if (float.IsNaN(frequency))
-        {
-
-        }
-        else
-        {
-            gameObject.GetComponent<Deplacement>().pitch = frequency;
-            // Algorithm detected fundamental frequency.
-            // The frequency is stored in the variable `frequency` (in Hz).
-        }
-    }
-    // Start is called before the first frame update
     void Start()
     {
-        // Request microphone permission
-        #if PLATFORM_ANDROID
+        Debug.Log("Starting MicInput initialization...");
+
+        // Request microphone permission (Android-specific)
+#if PLATFORM_ANDROID
         if (!Application.HasUserAuthorization(UserAuthorization.Microphone))
         {
+            Debug.Log("Requesting microphone permission...");
             Application.RequestUserAuthorization(UserAuthorization.Microphone);
         }
-        #endif
+#endif
 
-        // Start microphone
+        // Check if any microphones are available
         if (Microphone.devices.Length > 0)
         {
+            Debug.Log("Available Microphones: " + string.Join(", ", Microphone.devices));
+
             micro = GetComponent<AudioSource>();
-            UsedMicrophone = Microphone.devices[0];
-            Microphone.GetDeviceCaps(UsedMicrophone, out int minFreq, out int maxFreq);
-            micro.clip = Microphone.Start(Microphone.devices[0], false, 3559, maxFreq);
+            usedMicrophone = Microphone.devices[0];
+            Debug.Log($"Using Microphone: {usedMicrophone}");
+
+            Microphone.GetDeviceCaps(usedMicrophone, out int minFreq, out int maxFreq);
+            Debug.Log($"Microphone Capabilities - MinFreq: {minFreq}, MaxFreq: {maxFreq}");
+
+            maxFreq = maxFreq > 0 ? maxFreq : 44100; // Default to 44100 Hz if unavailable
+            micro.clip = Microphone.Start(usedMicrophone, true, 10, maxFreq);
+            micro.loop = true;
+
+            while (Microphone.GetPosition(usedMicrophone) <= 0)
+            {
+                Debug.Log("Waiting for microphone initialization...");
+            }
+
+            Debug.Log("Microphone started successfully.");
+            micro.Play();
         }
         else
         {
-            Debug.LogError("No microphone");
+            Debug.LogError("No microphone detected. Please check your device's microphone setup.");
         }
 
-        micro.Play();
-        InvokeRepeating("EstimatePitch", 0, 0.08f);
+        Debug.Log("Setting up pitch estimation...");
+        InvokeRepeating("EstimatePitch", 0, 0.08f); // Every 80ms
     }
 
-    // Update is called once per frame
-    void Update()
+    void EstimatePitch()
     {
+        Debug.Log("Running EstimatePitch...");
+        var estimator = GetComponent<AudioPitchEstimator>();
+        if (estimator == null)
+        {
+            Debug.LogError("No AudioPitchEstimator found on this GameObject.");
+            return;
+        }
 
+        // Estimate pitch
+        float frequency = estimator.Estimate();
+        Debug.Log($"Pitch estimation result: {frequency}");
+
+        if (!float.IsNaN(frequency))
+        {
+            Debug.Log($"Detected Pitch: {frequency} Hz");
+
+            if (character != null)
+            {
+                var deplacement = character.GetComponent<Deplacement>();
+                if (deplacement != null)
+                {
+                    deplacement.pitch = frequency;
+                    Debug.Log($"Pitch {frequency} Hz assigned to Deplacement script.");
+                }
+                else
+                {
+                    Debug.LogError("No Deplacement script found on the assigned Character GameObject.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Character GameObject is not assigned in the Inspector.");
+            }
+        }
+        else
+        {
+            Debug.Log("No pitch detected.");
+        }
     }
+
     void OnDisable()
     {
-        if (Microphone.IsRecording(UsedMicrophone))
+        Debug.Log("Disabling MicInput and stopping microphone...");
+        if (Microphone.IsRecording(usedMicrophone))
         {
-            Microphone.End(UsedMicrophone);
+            Microphone.End(usedMicrophone);
+            Debug.Log("Microphone stopped.");
+        }
+        else
+        {
+            Debug.LogWarning("Microphone was not recording.");
         }
     }
 }

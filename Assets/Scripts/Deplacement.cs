@@ -1,60 +1,35 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-//using static UnityEditor.PlayerSettings;
 
 public class Deplacement : MonoBehaviour
 {
-    float ratio;
-    public float pitch = 210;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public float pitch = 210; // The pitch value received from the microphone
+    private float targetYPosition; // The desired Y position based on pitch
+    private float currentYVelocity; 
 
-    }
+    // Smoothing parameters
+    public float smoothTime = 0.3f; // Time for the smoothing effect
 
-    // Update is called once per frame
     void Update()
-    { //DebugMode
-
-        /*
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Vector3 position = this.transform.position;
-            position.y++;
-            this.transform.position = position;
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Vector3 position = this.transform.position;
-            position.y--;
-            this.transform.position = position;
-        }
-        */
-
-        //normal mode
-        CvtPitchToHeight(pitch);
-
-
-    }
-    void FixedUpdate()
     {
+        targetYPosition = CalculateYPosition(pitch);
+
+        // Smoothly move 
+        float newYPosition = Mathf.SmoothDamp(transform.position.y, targetYPosition, ref currentYVelocity, smoothTime);
+
+        transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
+
+        // Debugging for logs
+        Debug.Log($"Current Pitch: {pitch}, Target Y: {targetYPosition}, Smoothed Y: {newYPosition}");
     }
 
-    private void CvtPitchToHeight(float pitch)
+    private float CalculateYPosition(float pitch)
     {
-        float newPos;
-
-        newPos = 12f * Mathf.Log(pitch / 440f, 2);//calculating the postion with the formula for linear scale between frequency and notes
-        newPos += 11.5f;
-        newPos = (2f / 3f) * newPos - 4f;
-        newPos = Mathf.Min(newPos, 5);
-        newPos = Mathf.Max(newPos, -5);
-        Vector3 res = new Vector3(transform.position.x, newPos, transform.position.z);
-        transform.position = res;
-
-
+        // Convert pitch to a musical note scale and calculate position
+        float newPos = 12f * Mathf.Log(pitch / 440f, 2); // Convert pitch to note scale
+        newPos += 11.5f; 
+        newPos = (2f / 3f) * newPos - 4f; 
+        newPos = Mathf.Clamp(newPos, -5, 5); // between -5 and 5
+        return newPos;
     }
-
 }

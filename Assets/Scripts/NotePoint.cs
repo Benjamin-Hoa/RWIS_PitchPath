@@ -11,6 +11,8 @@ public class NotePoint : MonoBehaviour
     Color color;//Color of the point, depends on the frequency
     // Start is called before the first frame update
 
+
+
     void Start()
     {
         
@@ -41,5 +43,22 @@ public class NotePoint : MonoBehaviour
         SetHeight(pos);
         freq = frequency;
         
+    }
+
+    public int scoreValue = 10; // Points awarded when colliding with this note point
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")) // the character has the "Player" tag
+        {
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+            if (scoreManager != null)
+            {
+                scoreManager.AddScore(scoreValue);
+                Debug.Log($"Score added: {scoreValue}. Total Score: {scoreManager.score}");
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
