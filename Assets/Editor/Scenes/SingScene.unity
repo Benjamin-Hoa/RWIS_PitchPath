@@ -977,7 +977,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013327681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c7664a05d5a8141b99beeb01545183, type: 3}
+  m_Script: {fileID: 11500000, guid: a6a7fbdedb6abc549ab32310fdb5916a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
@@ -1207,8 +1207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df597f99e1b1f4da3e688ab65b3660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  score_number: {fileID: 0}
 --- !u!50 &1777642093
 Rigidbody2D:
   serializedVersion: 4
