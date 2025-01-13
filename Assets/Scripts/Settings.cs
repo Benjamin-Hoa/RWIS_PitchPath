@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public bool pitchMode = false; // false = low pitch, 1 = high pitch
+    public bool pitchMode = false; // false = low pitch, true = high pitch
     public UnityEngine.UI.Button pitchButton;
     void Awake()
     {

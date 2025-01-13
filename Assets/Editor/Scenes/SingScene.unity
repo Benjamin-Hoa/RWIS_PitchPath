@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 478578830}
   m_Layer: 0
   m_Name: Path
-  m_TagString: Untagged
+  m_TagString: Path
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af6a2eec59534e41859aeef7e510cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notes_freq: []
   colors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5019608, b: 0, a: 1}
@@ -601,8 +602,9 @@ MonoBehaviour:
   - {r: 0, g: 0.5019608, b: 1, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0.5019608, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0.5019608, a: 1}
+  - {r: 0.9202862, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0.79022217, a: 1}
+  - {r: 1, g: 0, b: 0.5819087, a: 1}
   NotePoint_prefab: {fileID: 386652810}
 --- !u!4 &478578832
 Transform:
