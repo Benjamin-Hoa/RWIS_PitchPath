@@ -16,7 +16,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] UnityEngine.Color[] colors;
 
     [SerializeField] GameObject NotePoint_prefab;//Prefab to be able to spawn notepoints
-    int[] happyBirthday = {3,3,5,3,8,7,3,3,5,3,12,10,3,3,14,12,8,7,5,13,13,12,8,10,8,3,3};
+    int[] happyBirthday = {3,3,5,3,8,7,3,3,5,3,12,10,3,3,15,12,8,7,5,13,13,12,8,10,8,3,3};
     int nbNotes = 10; //number of notes
     int noteIndex = 0;
     GameObject settings;
@@ -31,8 +31,7 @@ public class PathManager : MonoBehaviour
 	{
   	    happyBirthday[i]=happyBirthday[i]-3;
 	}
-        //randomCreation(nbNotes); //This line is to create a random series of note instead of using a song
-        songGeneration(happyBirthday); //This line is to select the happy birthday song by default
+
         settings = GameObject.FindWithTag("Settings");
         if (settings.transform.GetComponent<Settings>().pitchMode)
         {
@@ -43,7 +42,8 @@ public class PathManager : MonoBehaviour
             notes_freq = notes_freq_low;
         }
 
-        randomCreation(nbNotes);
+	//randomCreation(nbNotes); //This line is to create a random series of note instead of using a song
+        songGeneration(happyBirthday); //This line is to select the happy birthday song by default
         
     }
     // Update is called once per frame
@@ -79,7 +79,6 @@ public class PathManager : MonoBehaviour
    void songGeneration(int[] song){
 	for (int i=0; i<song.Count(); i++)
 	{
-		Debug.Log(i);
 		notesPos.Add(song[i]);
 		notes.Add(notes_freq[notesPos[i]]);
 	}
