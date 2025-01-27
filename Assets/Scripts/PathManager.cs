@@ -54,7 +54,7 @@ public class PathManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (noteIndex < Mathf.Infinity && deltatime > 5)
+        if (noteIndex < Mathf.Infinity && deltatime > 0.9)
         {
             GameObject newNote = GameObject.Instantiate(NotePoint_prefab);
             newNote.SetActive(true);

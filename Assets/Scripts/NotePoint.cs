@@ -20,7 +20,7 @@ public class NotePoint : MonoBehaviour
     void Update()
     {
 
-        transform.position = new Vector3(transform.position.x - speedValue,transform.position.y , transform.position.z);
+        transform.position = new Vector3(transform.position.x - (speedValue * Time.deltaTime),transform.position.y , transform.position.z);
         if (transform.position.x < -10)
         {
             GameObject.Destroy(gameObject);

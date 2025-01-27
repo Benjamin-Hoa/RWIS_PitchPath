@@ -3,8 +3,8 @@
     "m_SelectedPackage": {
         "deviceId": "R5CWB26YRVW",
         "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 15955,
-        "exited": false
+        "processId": 6752,
+        "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
@@ -36,6 +36,60 @@
             "deviceId": "R5CWB26YRVW",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 15955,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 2984,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 21529,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 23447,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 25547,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 27885,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 4377,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CWB26YRVW",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 6752,
+            "exited": true
+        },
+        {
+            "deviceId": "CYDYLJKZFUF685BY",
+            "name": "jp.pokemon.pokemontcgp",
+            "processId": 16694,
+            "exited": true
+        },
+        {
+            "deviceId": "CYDYLJKZFUF685BY",
+            "name": "com.naver.linewebtoon",
+            "processId": 28193,
             "exited": false
         }
     ],

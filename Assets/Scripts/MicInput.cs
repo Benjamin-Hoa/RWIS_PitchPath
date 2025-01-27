@@ -38,6 +38,7 @@ public class MicInput : MonoBehaviour
         // Start microphone
         if (Microphone.devices.Length > 0)
         {
+            Microphone.End(null);
             micro = GetComponent<AudioSource>();
             UsedMicrophone = Microphone.devices[0];
             Microphone.GetDeviceCaps(UsedMicrophone, out int minFreq, out int maxFreq);
@@ -47,7 +48,10 @@ public class MicInput : MonoBehaviour
         {
             Debug.LogError("No microphone");
         }
-
+        while (Microphone.GetPosition(UsedMicrophone) <= 0)
+        {
+            Debug.Log("waiting for intialization");
+        }
         micro.Play();
         InvokeRepeating("EstimatePitch", 0, 0.08f);
     }
