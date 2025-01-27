@@ -22,26 +22,23 @@ public class NotePoint : MonoBehaviour
     void Update()
     {
 
-        transform.position = new Vector3(transform.position.x - speedValue,transform.position.y , transform.position.z);
+        transform.position = new Vector3(transform.position.x - (speedValue * Time.deltaTime),transform.position.y , transform.position.z);
         if (transform.position.x < -10)
         {
             GameObject.Destroy(gameObject);
         }
     }
 
-    void SetColor(Color color)
-    {
-        //TODO
-    }
     void SetHeight(int pos)
     {
         
-        transform.position = new Vector3(10,((2f/3f)*(float)pos)-4f,-1) ;
+        transform.position = new Vector3(10,(4f/6f)*((float)pos-7f),-1);
     }
-    public void Setup(float frequency, int pos)
+    public void Setup(float frequency, int pos, UnityEngine.Color color)
     {
         SetHeight(pos);
         freq = frequency;
+	this.gameObject.GetComponent<Renderer>().material.color = color;
         
     }
 
